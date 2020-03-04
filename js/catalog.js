@@ -14,7 +14,7 @@ function populateForm() {
   for (var i in Product.allProducts) {
     var optionE1 = document.createElement('option');
     selectElement.appendChild(optionE1);
-    optionE1.textContent=`${Product.allProducts[i].name}`
+    optionE1.textContent = `${Product.allProducts[i].name}`
 
 
   }
@@ -25,18 +25,28 @@ function populateForm() {
 // object, save the whole thing back to local storage and update the screen
 // so that it shows the # of items in the cart and a quick preview of the cart itself.
 function handleSubmit(event) {
-event.preventDefault();
-var item = event.target;
-var product = item.items.value;
-var quantity = item.quantity.value;
+  event.preventDefault();
+  var item = event.target;
+  var product = item.items.value;
+  var quantity = item.quantity.value;
+  var r = confirm(`Are you sure you want to add ${product} to your cart?`);
+  if (r == true) {
 
-  // TODO: Prevent the page from reloading
 
-  // Do all the things ...
-  addSelectedItemToCart();
-  cart.saveToLocalStorage();
-  updateCounter();
-  updateCartPreview();
+    // TODO: Prevent the page from reloading
+
+    // Do all the things ...
+    addSelectedItemToCart();
+    cart.saveToLocalStorage();
+    updateCounter();
+    updateCartPreview();
+    document.getElementById('items').selectedIndex = -1;
+    document.getElementById('quantity').value = "";
+  } else {
+    document.getElementById('items').selectedIndex = -1;
+    document.getElementById('quantity').value = "";
+  }
+
 
 }
 
@@ -48,7 +58,7 @@ function addSelectedItemToCart() {
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
+function updateCounter() { }
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
